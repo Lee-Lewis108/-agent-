@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>好客山东 — 文化圣地 度假天堂</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --gold: #C8A45C;
+  --gold-light: #E8D5A3;
+  --dark: #1A1A2E;
+  --darker: #0F0F1F;
+  --red: #B22222;
+  --red-light: #D4423F;
+  --cream: #FAF5EB;
+  --teal: #2A7B7B;
+  --blue: #3B6FA0;
+  --text: #333;
+  --text-light: #888;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans SC', sans-serif;
+  color: var(--text);
+  background: var(--cream);
+  overflow-x: hidden;
+}
+
+/* ========== PRELOADER ========== */
+.preloader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--darker);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 24px;
+  transition: opacity .8s, visibility .8s;
+}
+.preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.preloader-char {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 72px; font-weight: 900;
+  color: var(--gold);
+  opacity: 0; transform: translateY(30px);
+  animation: preChar .6s forwards;
+}
+.preloader-char:nth-child(2) { animation-delay: .15s; }
+.preloader-char:nth-child(3) { animation-delay: .3s; }
+.preloader-bar {
+  width: 200px; height: 2px; background: rgba(255,255,255,.1);
+  border-radius: 2px; overflow: hidden;
+}
+.preloader-bar span {
+  display: block; height: 100%; width: 0;
+  background: linear-gradient(90deg, var(--gold), var(--red));
+  animation: preLoad 1.8s ease-in-out forwards;
+}
+@keyframes preChar { to { opacity: 1; transform: translateY(0); } }
+@keyframes preLoad { to { width: 100%; } }
+
+/* ========== NAV ========== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 0 48px; height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background .4s, box-shadow .4s, backdrop-filter .4s;
+}
+nav.scrolled {
+  background: rgba(15,15,31,.92);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 2px 40px rgba(0,0,0,.3);
+}
+.nav-logo {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 22px; font-weight: 700;
+  color: #fff; letter-spacing: 2px;
+  display: flex; align-items: center; gap: 10px;
+}
+.nav-logo .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--red); display: inline-block;
+}
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  color: rgba(255,255,255,.7); text-decoration: none;
+  font-size: 14px; letter-spacing: 1px; font-weight: 400;
+  transition: color .3s; position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0;
+  width: 0; height: 1.5px; background: var(--gold);
+  transition: width .3s;
+}
+.nav-links a:hover { color: #fff; }
+.nav-links a:hover::after { width: 100%; }
+
+/* ========== HERO ========== */
+.hero {
+  position: relative; height: 100vh; min-height: 700px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 40%, #2a1a2e 100%);
+}
+.hero-bg-pattern {
+  position: absolute; inset: 0; opacity: .06;
+  background-image:
+    radial-gradient(circle at 20% 50%, var(--gold) 1px, transparent 1px),
+    radial-gradient(circle at 80% 20%, var(--gold) 1px, transparent 1px),
+    radial-gradient(circle at 60% 80%, var(--gold) 1px, transparent 1px);
+  background-size: 60px 60px, 80px 80px, 70px 70px;
+}
+.hero-mountain {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 40%; overflow: hidden;
+}
+.hero-mountain svg { position: absolute; bottom: 0; width: 100%; }
+.hero-content {
+  position: relative; z-index: 2; text-align: center;
+  padding: 0 24px;
+}
+.hero-badge {
+  display: inline-block;
+  padding: 6px 20px; border-radius: 100px;
+  border: 1px solid rgba(200,164,92,.3);
+  color: var(--gold-light); font-size: 13px;
+  letter-spacing: 4px; margin-bottom: 32px;
+  opacity: 0; animation: fadeUp .8s .6s forwards;
+}
+.hero-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(48px, 8vw, 120px);
+  font-weight: 900; color: #fff;
+  line-height: 1.15; letter-spacing: 8px;
+  margin-bottom: 24px;
+  opacity: 0; animation: fadeUp .8s .8s forwards;
+}
+.hero-title span {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light), #fff, var(--gold));
+  background-size: 300% 300%;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.hero-sub {
+  font-size: clamp(16px, 2vw, 22px);
+  color: rgba(255,255,255,.55); font-weight: 300;
+  letter-spacing: 6px; margin-bottom: 48px;
+  opacity: 0; animation: fadeUp .8s 1s forwards;
+}
+.hero-cta {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 16px 40px; border-radius: 100px;
+  background: linear-gradient(135deg, var(--gold), #D4A84B);
+  color: var(--darker); font-size: 15px; font-weight: 700;
+  letter-spacing: 2px; text-decoration: none;
+  transition: transform .3s, box-shadow .3s;
+  opacity: 0; animation: fadeUp .8s 1.2s forwards;
+}
+.hero-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 40px rgba(200,164,92,.4);
+}
+.hero-cta svg { width: 18px; height: 18px; }
+.hero-scroll {
+  position: absolute; bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: rgba(255,255,255,.3); font-size: 11px; letter-spacing: 2px;
+}
+.hero-scroll .line {
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, rgba(200,164,92,.5), transparent);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine {
+  0%, 100% { transform: scaleY(1); opacity: 1; }
+  50% { transform: scaleY(.5); opacity: .3; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== SECTION COMMON ========== */
+section { padding: 120px 0; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+.section-label {
+  font-size: 12px; letter-spacing: 6px;
+  color: var(--gold); font-weight: 500;
+  text-transform: uppercase; margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700; line-height: 1.3;
+  margin-bottom: 20px;
+}
+.section-desc {
+  font-size: 16px; line-height: 1.8;
+  color: var(--text-light); max-width: 600px;
+}
+
+/* ========== STATS ========== */
+.stats {
+  background: var(--darker); padding: 80px 0;
+  position: relative; overflow: hidden;
+}
+.stats::before {
+  content: '齐鲁';
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Noto Serif SC', serif;
+  font-size: 200px; font-weight: 900;
+  color: rgba(200,164,92,.04); letter-spacing: 20px;
+  white-space: nowrap; pointer-events: none;
+}
+.stats-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 40px; position: relative; z-index: 1;
+}
+.stat-item { text-align: center; }
+.stat-number {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 56px; font-weight: 900;
+  color: var(--gold); line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-number span { font-size: 28px; }
+.stat-label {
+  font-size: 14px; color: rgba(255,255,255,.4);
+  letter-spacing: 2px;
+}
+
+/* ========== CULTURE ========== */
+.culture { background: var(--cream); }
+.culture-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 32px; margin-top: 64px;
+}
+.culture-card {
+  position: relative; border-radius: 16px;
+  overflow: hidden; aspect-ratio: 3/4;
+  cursor: pointer; group: card;
+}
+.culture-card .card-bg {
+  position: absolute; inset: 0;
+  transition: transform .6s;
+}
+.culture-card:hover .card-bg { transform: scale(1.05); }
+.culture-card .card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.85) 0%, rgba(0,0,0,.2) 50%, rgba(0,0,0,.1) 100%);
+  transition: background .4s;
+}
+.culture-card:hover .card-overlay {
+  background: linear-gradient(to top, rgba(0,0,0,.9) 0%, rgba(0,0,0,.3) 50%, rgba(0,0,0,.15) 100%);
+}
+.culture-card .card-content {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 32px; z-index: 1;
+}
+.culture-card .card-icon {
+  font-size: 40px; margin-bottom: 16px;
+  display: block;
+}
+.culture-card .card-tag {
+  display: inline-block;
+  padding: 4px 12px; border-radius: 100px;
+  background: rgba(200,164,92,.15);
+  border: 1px solid rgba(200,164,92,.3);
+  color: var(--gold-light); font-size: 11px;
+  letter-spacing: 2px; margin-bottom: 12px;
+}
+.culture-card h3 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 24px; color: #fff;
+  font-weight: 700; margin-bottom: 8px;
+}
+.culture-card p {
+  font-size: 14px; color: rgba(255,255,255,.6);
+  line-height: 1.7;
+  transform: translateY(10px); opacity: 0;
+  transition: all .4s;
+}
+.culture-card:hover p { transform: translateY(0); opacity: 1; }
+
+.card-bg-mountain {
+  background: linear-gradient(135deg, #2d5a3d, #1a3a2e, #0d2618);
+  background-image:
+    radial-gradient(ellipse at 30% 80%, rgba(42,123,123,.3), transparent 60%),
+    linear-gradient(135deg, #2d5a3d, #1a3a2e);
+}
+.card-bg-confucius {
+  background: linear-gradient(135deg, #5a3a2a, #3a2218, #2a1a10);
+  background-image:
+    radial-gradient(ellipse at 70% 30%, rgba(200,164,92,.15), transparent 60%),
+    linear-gradient(135deg, #5a3a2a, #3a2218);
+}
+.card-bg-coast {
+  background: linear-gradient(135deg, #1a3a5a, #0d2540, #0a1a30);
+  background-image:
+    radial-gradient(ellipse at 50% 70%, rgba(59,111,160,.3), transparent 60%),
+    linear-gradient(135deg, #1a3a5a, #0d2540);
+}
+.card-bg-beer {
+  background: linear-gradient(135deg, #4a5a2a, #2a3a18, #1a2a0a);
+  background-image:
+    radial-gradient(ellipse at 40% 60%, rgba(200,200,80,.1), transparent 60%),
+    linear-gradient(135deg, #4a5a2a, #2a3a18);
+}
+.card-bg-spring {
+  background: linear-gradient(135deg, #3a2a5a, #2a1a4a, #1a0a3a);
+  background-image:
+    radial-gradient(ellipse at 60% 40%, rgba(100,80,180,.2), transparent 60%),
+    linear-gradient(135deg, #3a2a5a, #2a1a4a);
+}
+.card-bg-penglai {
+  background: linear-gradient(135deg, #5a4a3a, #3a2a1a, #2a1a0a);
+  background-image:
+    radial-gradient(ellipse at 50% 30%, rgba(255,200,100,.12), transparent 60%),
+    linear-gradient(135deg, #5a4a3a, #3a2a1a);
+}
+
+/* ========== LANDMARKS ========== */
+.landmarks { background: var(--darker); color: #fff; overflow: hidden; }
+.landmarks .section-desc { color: rgba(255,255,255,.4); }
+.landmark-showcase {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; margin-top: 80px;
+  align-items: center;
+}
+.landmark-visual {
+  position: relative; aspect-ratio: 4/3;
+  border-radius: 20px; overflow: hidden;
+}
+.landmark-visual .lv-bg {
+  position: absolute; inset: 0;
+  transition: transform .8s;
+}
+.landmark-visual:hover .lv-bg { transform: scale(1.03); }
+.lv-mount {
+  background: linear-gradient(160deg, #2d6a4a, #1b4332, #081c15);
+  background-image:
+    radial-gradient(ellipse at 30% 20%, rgba(255,200,100,.08), transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(42,123,123,.2), transparent 50%);
+}
+.lv-temple {
+  background: linear-gradient(160deg, #6a3a2a, #4a2a1a, #2a1a0a);
+  background-image:
+    radial-gradient(ellipse at 50% 30%, rgba(200,164,92,.12), transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(180,60,60,.08), transparent 50%);
+}
+.lv-overlay-icon {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 80px; opacity: .15;
+  pointer-events: none;
+}
+.landmark-info { display: flex; flex-direction: column; gap: 24px; }
+.landmark-info .lm-num {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 100px; font-weight: 900;
+  color: rgba(200,164,92,.08); line-height: 1;
+}
+.landmark-info h3 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 36px; font-weight: 700;
+}
+.landmark-info .lm-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 16px; border-radius: 100px;
+  background: rgba(200,164,92,.1);
+  color: var(--gold); font-size: 12px;
+  letter-spacing: 2px; width: fit-content;
+}
+.landmark-info p {
+  font-size: 16px; line-height: 2;
+  color: rgba(255,255,255,.5);
+}
+.landmark-info .lm-features {
+  display: flex; gap: 24px; margin-top: 8px;
+}
+.lm-feat {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.lm-feat .feat-val {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 24px; font-weight: 700; color: var(--gold);
+}
+.lm-feat .feat-label {
+  font-size: 12px; color: rgba(255,255,255,.3);
+  letter-spacing: 1px;
+}
+
+/* ========== CUISINE (轮播样式) ========== */
+.cuisine { background: var(--cream); }
+
+/* 轮播容器 */
+.carousel-container {
+  position: relative;
+  margin-top: 64px;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* 轨道 */
+.carousel-track {
+  display: flex;
+  transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  gap: 24px;
+}
+
+/* 卡片本身样式继承自原 .cuisine-item */
+.cuisine-item {
+  flex: 0 0 300px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 4px 30px rgba(0,0,0,.06);
+  transition: transform .3s, box-shadow .3s;
+}
+.cuisine-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,.1);
+}
+.cuisine-img {
+  height: 200px; position: relative;
+  overflow: hidden;
+}
+.cuisine-img .ci-bg {
+  position: absolute; inset: 0;
+  transition: transform .6s;
+}
+.cuisine-item:hover .ci-bg { transform: scale(1.05); }
+.ci-ji { background: linear-gradient(135deg, #8B4513, #A0522D, #CD853F); }
+.ci-yu { background: linear-gradient(135deg, #2F4F4F, #20B2AA, #5F9EA0); }
+.ci-bing { background: linear-gradient(135deg, #DAA520, #F4A460, #DEB887); }
+.ci-chun { background: linear-gradient(135deg, #228B22, #32CD32, #90EE90); }
+.ci-gao { background: linear-gradient(135deg, #8B0000, #B22222, #CD5C5C); }
+.ci-lu { background: linear-gradient(135deg, #4B0082, #6A5ACD, #9370DB); }
+.ci-emoji {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 64px; filter: drop-shadow(0 4px 12px rgba(0,0,0,.3));
+}
+.cuisine-body { padding: 24px; }
+.cuisine-body h4 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.cuisine-body h4::-webkit-scrollbar { display: none; }
+.cuisine-body p {
+  font-size: 13px; color: var(--text-light);
+  line-height: 1.7;
+}
+.cuisine-body .ci-tag {
+  display: inline-block; margin-top: 12px;
+  padding: 3px 10px; border-radius: 100px;
+  background: rgba(200,164,92,.1);
+  color: var(--gold); font-size: 11px;
+  letter-spacing: 1px;
+}
+
+/* 左右箭头 */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(15,15,31,0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(200,164,92,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s;
+  color: var(--gold);
+  font-size: 24px;
+  font-weight: 300;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.carousel-btn:hover {
+  background: var(--gold);
+  color: var(--darker);
+  border-color: var(--gold);
+}
+.carousel-btn-left { left: -20px; }
+.carousel-btn-right { right: -20px; }
+
+/* 指示点 */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 32px;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.2);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.dot.active {
+  background: var(--gold);
+  width: 28px;
+  border-radius: 5px;
+}
+.dot:hover {
+  background: var(--gold-light);
+}
+
+/* 响应式调整 */
+@media (max-width: 900px) {
+  .carousel-btn-left { left: 0px; }
+  .carousel-btn-right { right: 0px; }
+  .carousel-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+}
+@media (max-width: 600px) {
+  .carousel-btn { display: none; } /* 手机上可隐藏按钮，保留滑动和点 */
+}
+
+/* ========== TIMELINE ========== */
+.timeline-section { background: #fff; }
+.timeline {
+  position: relative; margin-top: 80px;
+  padding-left: 60px;
+}
+.timeline::before {
+  content: ''; position: absolute;
+  top: 0; bottom: 0; left: 30px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--gold), rgba(200,164,92,.1));
+}
+.tl-item {
+  position: relative; margin-bottom: 64px;
+  opacity: 0; transform: translateX(-20px);
+  transition: all .6s;
+}
+.tl-item.visible { opacity: 1; transform: translateX(0); }
+.tl-item::before {
+  content: ''; position: absolute;
+  left: -38px; top: 6px;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 4px rgba(200,164,92,.2);
+}
+.tl-year {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 14px; color: var(--gold);
+  letter-spacing: 2px; margin-bottom: 8px;
+  font-weight: 600;
+}
+.tl-item h4 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 22px; font-weight: 700;
+  margin-bottom: 8px;
+}
+.tl-item p {
+  font-size: 14px; color: var(--text-light);
+  line-height: 1.8; max-width: 500px;
+}
+
+/* ========== QUOTE ========== */
+.quote-section {
+  background: var(--darker); color: #fff;
+  padding: 120px 0; text-align: center;
+  position: relative; overflow: hidden;
+}
+.quote-section::before {
+  content: '仁';
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Noto Serif SC', serif;
+  font-size: 400px; font-weight: 900;
+  color: rgba(200,164,92,.03);
+  pointer-events: none;
+}
+.quote-mark {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 80px; color: var(--gold);
+  line-height: 1; margin-bottom: 24px;
+  opacity: .3;
+}
+.quote-text {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(24px, 3vw, 40px);
+  font-weight: 600; line-height: 1.6;
+  max-width: 800px; margin: 0 auto 24px;
+}
+.quote-author {
+  font-size: 16px; color: var(--gold);
+  letter-spacing: 4px;
+}
+
+/* ========== FOOTER ========== */
+footer {
+  background: #0a0a16; color: #fff;
+  padding: 80px 0 40px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px; margin-bottom: 64px;
+}
+.footer-brand .fb-logo {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 24px; font-weight: 700;
+  margin-bottom: 16px;
+}
+.footer-brand p {
+  font-size: 14px; color: rgba(255,255,255,.35);
+  line-height: 1.8; max-width: 300px;
+}
+.footer-col h5 {
+  font-size: 13px; letter-spacing: 2px;
+  color: rgba(255,255,255,.6); margin-bottom: 20px;
+  font-weight: 500;
+}
+.footer-col a {
+  display: block; color: rgba(255,255,255,.3);
+  text-decoration: none; font-size: 14px;
+  margin-bottom: 12px; transition: color .3s;
+}
+.footer-col a:hover { color: var(--gold); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding-top: 32px;
+  display: flex; justify-content: space-between;
+  align-items: center;
+}
+.footer-bottom span {
+  font-size: 13px; color: rgba(255,255,255,.2);
+}
+.footer-bottom .social { display: flex; gap: 16px; }
+.footer-bottom .social a {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.1);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,.3); text-decoration: none;
+  font-size: 14px; transition: all .3s;
+}
+.footer-bottom .social a:hover {
+  border-color: var(--gold); color: var(--gold);
+}
+
+/* ========== SCROLL ANIMATIONS ========== */
+.reveal {
+  opacity: 0; transform: translateY(40px);
+  transition: opacity .8s, transform .8s;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .culture-grid { grid-template-columns: 1fr; }
+  .landmark-showcase { grid-template-columns: 1fr; gap: 40px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .hero-title { letter-spacing: 4px; }
+}
+@media (max-width: 600px) {
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .stat-number { font-size: 40px; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div class="preloader" id="preloader">
+  <div style="display:flex;gap:8px;">
+    <span class="preloader-char">山</span>
+    <span class="preloader-char">东</span>
+  </div>
+  <div class="preloader-bar"><span></span></div>
+</div>
+
+<!-- NAV -->
+<<nav id="nav">
+  <div class="nav-logo"><span class="dot"></span>好客山东</div>
+  <ul class="nav-links">
+    <li><a href="#culture">文化</a></li>
+    <li><a href="#landmarks">名胜</a></li>
+    <li><a href="#cuisine">美食</a></li>
+    <li><a href="#history">历史</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-mountain">
+    <svg viewBox="0 0 1440 400" preserveAspectRatio="none" style="height:100%;">
+      <path d="M0,400 L0,280 Q180,180 360,250 Q540,320 720,200 Q900,80 1080,180 Q1260,280 1440,220 L1440,400 Z" fill="rgba(200,164,92,.06)"/>
+      <path d="M0,400 L0,320 Q200,240 400,290 Q600,340 800,260 Q1000,180 1200,260 Q1350,320 1440,280 L1440,400 Z" fill="rgba(200,164,92,.03)"/>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">文化圣地 · 度假天堂</div>
+    <h1 class="hero-title"><span>好客山东</span></h1>
+    <p class="hero-sub">孔孟之乡 · 礼仪之邦 · 山海之间</p>
+    <a href="#culture" class="hero-cta">
+      探索齐鲁大地
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </a>
+  </div>
+  <div class="hero-scroll">
+    <div class="line"></div>
+    <span>SCROLL</span>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal"><div class="stat-number" data-target="15">0<span>万年</span></div><div class="stat-label">文明历史</div></div>
+      <div class="stat-item reveal"><div class="stat-number" data-target="12">0<span>座</span></div><div class="stat-label">国家5A景区</div></div>
+      <div class="stat-item reveal"><div class="stat-number" data-target="3000">0<span>+</span></div><div class="stat-label">公里海岸线</div></div>
+      <div class="stat-item reveal"><div class="stat-number" data-target="1">0<span>亿</span></div><div class="stat-label">常住人口</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CULTURE -->
+<section class="culture" id="culture">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">齐鲁文化</div>
+      <h2 class="section-title">千年文脉<br>在此发源</h2>
+      <p class="section-desc">山东是中华文明的重要发祥地之一，儒家文化从这里走向世界，影响了东亚两千年的文明进程。</p>
+    </div>
+    <div class="culture-grid">
+      <div class="culture-card reveal"><div class="card-bg card-bg-mountain"></div><div class="card-overlay"></div><div class="card-content"><span class="card-icon">&#x26EA;</span><span class="card-tag">世界遗产</span><h3>泰山</h3><p>五岳之首，天下第一山。自秦始皇起，历代帝王封禅之地，承载着中华民族的精神象征。</p></div></div>
+      <div class="culture-card reveal"><div class="card-bg card-bg-confucius"></div><div class="card-overlay"></div><div class="card-content"><span class="card-icon">&#x1F4D6;</span><span class="card-tag">儒学圣地</span><h3>曲阜三孔</h3><p>孔庙、孔府、孔林——纪念至圣先师孔子的圣地，儒学文化的源头活水，千年文脉从未断绝。</p></div></div>
+      <div class="culture-card reveal"><div class="card-bg card-bg-coast"></div><div class="card-overlay"></div><div class="card-content"><span class="card-icon">&#x1F30A;</span><span class="card-tag">黄金海岸</span><h3>胶东半岛</h3><p>青岛、烟台、威海——红瓦绿树，碧海蓝天。中国北方最美的海滨风光带。</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LANDMARKS -->
+<section class="landmarks" id="landmarks">
+  <div class="container">
+    <div class="reveal"><div class="section-label">名山胜景</div><h2 class="section-title" style="color:#fff;">山海之间<br>气象万千</h2><p class="section-desc">从巍峨泰山到蓬莱仙境，从趵突泉到黄河入海口，山东的自然与人文景观交相辉映。</p></div>
+    <div class="landmark-showcase reveal">
+      <div class="landmark-visual"><div class="lv-bg lv-mount"></div><div class="lv-overlay-icon">&#x26F0;</div></div>
+      <div class="landmark-info"><div class="lm-num">01</div><span class="lm-tag">&#x2605; 世界文化与自然双遗产</span><h3>泰山</h3><p>泰山主峰玉皇顶海拔1545米，气势雄伟磅礴，有"五岳独尊"之美誉。自古以来，泰山就是中华民族精神的象征，"泰山安，四海皆安"。</p><div class="lm-features"><div class="lm-feat"><span class="feat-val">1545m</span><span class="feat-label">海拔高度</span></div><div class="lm-feat"><span class="feat-val">2500+</span><span class="feat-label">石刻碑文</span></div><div class="lm-feat"><span class="feat-val">30亿年</span><span class="feat-label">地质年龄</span></div></div></div>
+    </div>
+    <div class="landmark-showcase reveal" style="margin-top:100px;">
+      <div class="landmark-info"><div class="lm-num">02</div><span class="lm-tag">&#x2605; 东方圣城</span><h3>曲阜三孔</h3><p>孔庙是祭祀孔子的本庙，孔府是孔子嫡系后裔居住的府邸，孔林是孔子及其家族的墓地。三孔合称，是中国现存规模最大、年代最久远的祭祀建筑群。</p><div class="lm-features"><div class="lm-feat"><span class="feat-val">2500年</span><span class="feat-label">历史传承</span></div><div class="lm-feat"><span class="feat-val">466间</span><span class="feat-label">古建筑</span></div><div class="lm-feat"><span class="feat-val">10万+</span><span class="feat-label">古树名木</span></div></div></div>
+      <div class="landmark-visual"><div class="lv-bg lv-temple"></div><div class="lv-overlay-icon">&#x1F3EF;</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CUISINE (轮播区域) -->
+<section class="cuisine" id="cuisine">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">鲁菜飘香</div>
+      <h2 class="section-title">八大菜系之首<br>味蕾上的山东</h2>
+      <p class="section-desc">鲁菜是中国八大菜系之首，历史悠久、技法精湛，讲究"大味至真"，对北方菜系影响深远。</p>
+    </div>
+
+    <!-- 轮播组件 -->
+    <div class="carousel-container">
+      <div class="carousel-track" id="cuisineTrack">
+        <!-- 卡片内容会由 js 动态生成，保证无限循环结构 -->
+      </div>
+      <div class="carousel-btn carousel-btn-left" id="prevBtn">&#10094;</div>
+      <div class="carousel-btn carousel-btn-right" id="nextBtn">&#10095;</div>
+    </div>
+    <div class="carousel-dots" id="carouselDots"></div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote-section">
+  <div class="container reveal">
+    <div class="quote-mark">&ldquo;</div>
+    <p class="quote-text">有朋自远方来<br>不亦乐乎</p>
+    <p class="quote-author">—— 孔子 ·《论语》</p>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section" id="history">
+  <div class="container">
+    <div class="reveal"><div class="section-label">历史长河</div><h2 class="section-title">齐鲁大地<br>文明之光</h2><p class="section-desc">从远古到现代，山东始终站在中华文明的前沿。</p></div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-year">距今约 8500 年</div><h4>后李文化</h4><p>山东地区最早的新石器时代文化，揭开了齐鲁文明的序幕。淄博后李遗址出土的陶器，见证了先民的智慧。</p></div>
+      <div class="tl-item"><div class="tl-year">公元前 1046 年</div><h4>齐鲁建国</h4><p>周武王灭商后，封姜太公于齐、周公于鲁。齐国以工商立国，鲁国以礼乐治邦，形成独特的齐鲁文化。</p></div>
+      <div class="tl-item"><div class="tl-year">公元前 551 年</div><h4>孔子诞生</h4><p>孔子出生于鲁国陬邑，创立儒学，提出"仁义礼智信"，影响了中国乃至整个东亚文明两千余年。</p></div>
+      <div class="tl-item"><div class="tl-year">公元前 219 年</div><h4>始皇封禅</h4><p>秦始皇东巡登泰山，举行封禅大典，刻石记功。此后历代帝王纷纷效仿，泰山成为"帝王之山"。</p></div>
+      <div class="tl-item"><div class="tl-year">公元 1897 年</div><h4>青岛开埠</h4><p>德国强租胶州湾，青岛开埠。东西方文化在此碰撞融合，造就了独特的城市风貌。</p></div>
+      <div class="tl-item"><div class="tl-year">今日</div><h4>走在前列</h4><p>山东GDP位居全国前三，是经济大省、文化大省、海洋大省，新时代社会主义现代化强省建设全面起势。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="fb-logo">好客山东</div><p>齐鲁大地，孔孟之乡。<br>山海之间，好客山东欢迎您。</p></div>
+      <div class="footer-col"><h5>名胜</h5><a href="#">泰山风景区</a><a href="#">曲阜三孔</a><a href="#">蓬莱阁</a><a href="#">崂山</a></div>
+      <div class="footer-col"><h5>城市</h5><a href="#">济南</a><a href="#">青岛</a><a href="#">烟台</a><a href="#">威海</a></div>
+      <div class="footer-col"><h5>了解更多</h5><a href="#">山东文化</a><a href="#">鲁菜美食</a><a href="#">非遗传承</a><a href="#">旅游指南</a></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; 2026 好客山东 Shandong, China</span><div class="social"><a href="#" title="微信">&#x263A;</a><a href="#" title="微博">&#x2606;</a><a href="#" title="抖音">&#x25B6;</a></div></div>
+  </div>
+</footer>
+
+<script>
+// 预加载器
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 2000);
+});
+
+// 导航滚动变色
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// 滚动显示动画
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      // 数字动画
+      if (e.target.querySelector('.stat-number')) {
+        const el = e.target.querySelector('.stat-number');
+        const target = +el.dataset.target;
+        const suffix = el.querySelector('span')?.outerHTML || '';
+        let current = 0;
+        const step = Math.ceil(target / 40);
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) { current = target; clearInterval(timer); }
+          el.innerHTML = current + suffix;
+        }, 30);
+      }
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal, .tl-item').forEach(el => observer.observe(el));
+
+// 平滑滚动
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// 视差效果
+window.addEventListener('scroll', () => {
+  const hero = document.querySelector('.hero-content');
+  if (hero) {
+    const y = window.scrollY * 0.3;
+    hero.style.transform = `translateY(${y}px)`;
+    hero.style.opacity = 1 - window.scrollY / 800;
+  }
+});
+
+// ==================== 美食轮播组件（循环动态播放版） ====================
+(function() {
+  // 原始卡片数据（与原始 HTML 完全一致）
+  const rawCards = [
+    `<div class="cuisine-item reveal"><div class="cuisine-img"><div class="ci-bg ci-ji"></div><span class="ci-emoji">&#x1F414;</span></div><div class="cuisine-body"><h4>德州扒鸡</h4><p>三百余年历史的名吃，骨酥肉烂、五香脱骨，被誉为"天下第一鸡"。</p><span class="ci-tag">非遗美食</span></div></div>`,
+    `<div class="cuisine-item reveal"><div class="cuisine-img"><div class="ci-bg ci-yu"></div><span class="ci-emoji">&#x1F41F;</span></div><div class="cuisine-body"><h4>糖醋鲤鱼</h4><p>鲁菜代表之作，取黄河鲤鱼，外酥里嫩，酸甜适口，形如鲤鱼跃龙门。</p><span class="ci-tag">经典鲁菜</span></div></div>`,
+    `<div class="cuisine-item reveal"><div class="cuisine-img"><div class="ci-bg ci-bing"></div><span class="ci-emoji">&#x1F35E;</span></div><div class="cuisine-body"><h4>山东煎饼</h4><p>薄如纸、大如盖，卷上大葱蘸酱，是山东人最质朴的味觉记忆。</p><span class="ci-tag">主食文化</span></div></div>`,
+    `<div class="cuisine-item reveal"><div class="cuisine-img"><div class="ci-bg ci-chun"></div><span class="ci-emoji">&#x1F955;</span></div><div class="cuisine-body"><h4>春卷 & 四喜丸子</h4><p>节庆必备美食，寓意吉祥如意，鲜香四溢，家的味道。</p><span class="ci-tag">年节美食</span></div></div>`,
+    `<div class="cuisine-item reveal"><div class="cuisine-img"><div class="ci-bg ci-gao"></div><span class="ci-emoji">&#x1F382;</span></div><div class="cuisine-body"><h4>济南把子肉</h4><p>肥而不腻、瘦而不柴，浓油赤酱浇在米饭上，是济南人的灵魂美食。</p><span class="ci-tag">泉城味道</span></div></div>`,
+    `<div class="cuisine-item reveal"><div class="cuisine-img"><div class="ci-bg ci-lu"></div><span class="ci-emoji">&#x1F37A;</span></div><div class="cuisine-body"><h4>青岛啤酒</h4><p>1903年建厂，百年品牌。用崂山矿泉水酿造，泡沫洁白细腻，清爽怡人。</p><span class="ci-tag">百年品牌</span></div></div>`
+  ];
+
+  const track = document.getElementById('cuisineTrack');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsContainer = document.getElementById('carouselDots');
+
+  // 填充原始卡片
+  track.innerHTML = rawCards.join('');
+  const originalItems = Array.from(track.children);
+  const total = originalItems.length;
+  if (total === 0) return;
+
+  // 克隆首尾节点实现无缝循环
+  const firstClone = originalItems[0].cloneNode(true);
+  const lastClone = originalItems[total - 1].cloneNode(true);
+  track.appendChild(firstClone);
+  track.insertBefore(lastClone, originalItems[0]);
+
+  // 强制所有卡片可见（移除 reveal 的隐藏状态，避免克隆节点受 IntersectionObserver 影响）
+  track.querySelectorAll('.cuisine-item').forEach(item => {
+    item.classList.remove('reveal');
+    item.classList.add('visible');
+    item.style.opacity = '1';
+    item.style.transform = 'none';
+  });
+
+  const items = Array.from(track.children);
+  const itemWidth = 300;   // 与 CSS 中 flex-basis 保持一致
+  const gap = 24;          // 与 CSS 中 gap 保持一致
+  const slideDistance = itemWidth + gap;
+
+  let currentIndex = 1;    // 初始显示真正的第一张（索引 0 是克隆的最后一张）
+  let isTransitioning = false;
+  let autoTimer = null;
+  const autoInterval = 4000;
+
+  // 设置轨道位置
+  function setPosition(index, animate = true) {
+    track.style.transition = animate
+      ? 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+      : 'none';
+    track.style.transform = `translateX(-${index * slideDistance}px)`;
+  }
+
+  // 获取真实索引（0 ~ total-1）
+  function getRealIndex(trackIndex) {
+    if (trackIndex === 0) return total - 1;
+    if (trackIndex === items.length - 1) return 0;
+    return trackIndex - 1;
+  }
+
+  // 移动到指定轨道索引
+  function moveTo(index) {
+    if (isTransitioning) return;
+    isTransitioning = true;
+    currentIndex = index;
+    setPosition(index, true);
+    updateDots(getRealIndex(index));
+  }
+
+  // 跳转到真实索引
+  function goTo(realIndex) {
+    moveTo(realIndex + 1);
+  }
+
+  // transitionend 事件：边界瞬间跳转，实现无缝循环
+  track.addEventListener('transitionend', () => {
+    isTransitioning = false;
+    if (currentIndex === 0) {
+      currentIndex = total;          // 克隆尾 → 真实尾
+      setPosition(currentIndex, false);
+    } else if (currentIndex === items.length - 1) {
+      currentIndex = 1;              // 克隆首 → 真实首
+      setPosition(currentIndex, false);
+    }
+  });
+
+  // 指示点
+  function buildDots() {
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < total; i++) {
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      dot.addEventListener('click', () => {
+        resetAutoPlay();
+        goTo(i);
+      });
+      dotsContainer.appendChild(dot);
+    }
+    updateDots(0);
+  }
+
+  function updateDots(activeIndex) {
+    dotsContainer.querySelectorAll('.dot').forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === activeIndex);
+    });
+  }
+
+  // 自动播放控制
+  function startAutoPlay() {
+    stopAutoPlay();
+    autoTimer = setInterval(() => {
+      if (!isTransitioning) moveTo(currentIndex + 1);
+    }, autoInterval);
+  }
+
+  function stopAutoPlay() {
+    if (autoTimer) {
+      clearInterval(autoTimer);
+      autoTimer = null;
+    }
+  }
+
+  function resetAutoPlay() {
+    stopAutoPlay();
+    startAutoPlay();
+  }
+
+  // 按钮事件
+  prevBtn.addEventListener('click', () => {
+    resetAutoPlay();
+    moveTo(currentIndex - 1);
+  });
+
+  nextBtn.addEventListener('click', () => {
+    resetAutoPlay();
+    moveTo(currentIndex + 1);
+  });
+
+  // 鼠标悬停暂停
+  const container = document.querySelector('.carousel-container');
+  container.addEventListener('mouseenter', stopAutoPlay);
+  container.addEventListener('mouseleave', startAutoPlay);
+
+  // 触摸滑动支持（移动端）
+  let touchStartX = 0;
+  container.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    stopAutoPlay();
+  }, { passive: true });
+
+  container.addEventListener('touchend', (e) => {
+    const diff = touchStartX - e.changedTouches[0].screenX;
+    if (Math.abs(diff) > 50) {
+      diff > 0 ? moveTo(currentIndex + 1) : moveTo(currentIndex - 1);
+    }
+    startAutoPlay();
+  }, { passive: true });
+
+  // 窗口变化时重置位置，防止错位
+  window.addEventListener('resize', () => {
+    setPosition(currentIndex, false);
+  });
+
+  // 初始化
+  setPosition(1, false);
+  buildDots();
+  startAutoPlay();
+})();
+</script>
+</body>
+</html>
